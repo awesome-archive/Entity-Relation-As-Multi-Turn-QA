@@ -96,4 +96,4 @@ Please cite the following if you find this repo useful :)
 ```
 
 ## License
-Refer to [LISENCE](https://github.com/ShannonAI/Entity-Relation-As-Multi-Turn-QA/blob/master/LICENSE) for details.
+Refer to [LICENCE](https://github.com/ShannonAI/Entity-Relation-As-Multi-Turn-QA/blob/master/LICENSE) for details.
