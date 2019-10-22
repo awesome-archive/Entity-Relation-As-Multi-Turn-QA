@@ -23,6 +23,7 @@ We trained and evaluated the model using the following datasets:
 
 ### Results
 - Results on **RESUME** dataset (F1 score is reported)
+
   | *Type* | multi-turn QA | multi-turn QA+RL | tagging+dependency | tagging+relation |
   |--|   --- |   ---| --- | --- |
   |PERSON| **98.6** | **98.6** |  97.1 | 97.1 |
@@ -32,14 +33,17 @@ We trained and evaluated the model using the following datasets:
   |*All*|92.1|**92.5**|90.8|89.8|
 
 - Results on **ACE 2004** test set (Precision, Recall and F1 are reported)
-  | *Models* | Enity P | Entity R | Entity F | Relation P | Relation R | Relation F|
-  | --- | --- | --- | --- | --- | --- | --- |
-  | Li and Ji (2014) |*83.5* | 76.2 | 79.7 | **60.8** |36.1|49.3|
-  | Miwa and Bansal (2016) | 80.8 | **82.9** | *81.8* | 48.7 |*48.1*|*48.4*|
-  |Katiyar and Cardie (2017) | 81.2 | 78.1 | 79.6 | 46.4 | 45.3 | 45.7 |
-  |Bekoulis et al.(2018) | - | - | 81.6 | - | - | 47.5 |
-  |Multi-turn QA| **84.4** | **82.9** | **83.6** | 50.1 | **48.7** | **49.4(+1.0)** |
+
+   *Models* | Enity P | Entity R | Entity F | Relation P | Relation R | Relation F
+   --- | --- | --- | --- | --- | --- | --- 
+   Li and Ji (2014) |*83.5* | 76.2 | 79.7 | **60.8** |36.1|49.3
+   Miwa and Bansal (2016) | 80.8 | **82.9** | *81.8* | 48.7 |*48.1*|*48.4*
+  Katiyar and Cardie (2017) | 81.2 | 78.1 | 79.6 | 46.4 | 45.3 | 45.7 
+  Bekoulis et al.(2018) | - | - | 81.6 | - | - | 47.5 
+  Multi-turn QA| **84.4** | **82.9** | **83.6** | 50.1 | **48.7** | **49.4(+1.0)** 
+  
 - Results on **ACE 2005** test set (Precision, Recall and F1 are reported)
+
   | *Models* | Enity P | Entity R | Entity F | Relation P | Relation R | Relation F|
   | --- | --- | --- | --- | --- | --- | --- |
   |Li and Ji (2014)| **85.2** | 76.9| 80.8| **65.4**| 39.8| 49.5|
@@ -48,7 +52,9 @@ We trained and evaluated the model using the following datasets:
   |Zhang et al. (2017)| -| -| 83.5 |-|- |57.5|
   |Sun et al. (2018) |83.9 |83.2| *83.6*| 64.9| *55.1*| *59.6*|
   |Multi-turn QA |84.7 |**84.9**|**84.8** |64.8| **56.2**| **60.2 (+0.6)**|
+  
 - Results on **CoNLL 2004** dataset (Precision, Recall and F1 are reported)
+
   | *Models* | Enity P | Entity R | Entity F | Relation P | Relation R | Relation F|
   | --- | --- | --- | --- | --- | --- | --- |
   |Miwa and Sasaki (2014)| – |– |80.7| –| – |61.0|
