@@ -1,62 +1,109 @@
 # Entity-Relation Extraction as Multi-turn Question Answering
 
-This repository contains the implemention of our paper [Entity-Relation Extraction as Multi-turn Question Answering
-](https://arxiv.org/pdf/1905.05529.pdf) (ACL 2019).
+This is the implementation of the work [Entity-Relation Extraction as Multi-turn Question Answering (ACL 2019)
+](https://arxiv.org/pdf/1905.05529.pdf) from [Shannon.AI](http://www.shannonai.com). The implementation is on top of PyTorch.  
 
-## Information Extraction as Multi-turn QA
-### Introduction
-As extracting entities and relations from unstructured texts has become a core task in natural language processing, it's still challenging to jointly extract entities and their relations accurately, mostly due to the following existing problems:
+## Introduction
 - the lack of consideration of hierarchical entity relation behind semantic dependencies
-- more complicated realities compared to specially constructed datasets
+- more complicated realities compared to handcrafted datasets
 
 In this paper, we regard joint entity-relation extraction as a **multi-turn question answering task (multi-turn QA)**: each kind of entity and relation can be described by a QA template, through which the corresponding entity or relation can be extracted from raw texts as answers.
 
 In addition to multi-QA, we also utilize **reinforcement learning** to better extract answers with long template chains. We also design a strategy to automatically generate question templates and answers. More details please refer to our paper.
 
 
-### Datasets
-We trained and evaluated the model using the following datasets:
-- **ACE 2004/2005**: the widely used entity-relation extraction benchmarks defining 7 entity types including `PER`, `ORG`, `GPE`, `LOC`, `FAC`, `WEA` and `VEH`, and 7 relation types including `PHYS`, `PER-SOC`, `EMP-ORG`, `ART`, `OTHER-AFF`, `GPE-AFF` and `DISC` for **ACE 2004** while `PHYS`, `PER-SOC`, `EMP-ORG`, `ART`, `GPE-AFF` and `PART-WHOLE` for **ACE 2005**
-- **CoNLL 2004**: an entity-relation extraction dataset which defines 4 entity types `LOC`, `ORG`, `PER` and `OTHERS` and 5 relation types including `LOCATED_IN`, `WORK_FOR`, `ORGBASED_IN`, `LIVE_IN` and `KILL`
+## Experimental Results
 
-### Results
+Evalutations are conducted on the widely used datasets `ACE 2004`, `ACE 2005` and `CoNLL 2004`.  
+We report micro precision, recall and F1-score for entity and relation extractions. 
+We only list the experimental comparion between the proposed method and **previous** `state-of-the-art` model. More experimental comparions are shown in paper. 
 
-- Results on **ACE 2004** test set (Precision, Recall and F1 are reported)
+- Results on **ACE 2004**:
 
    *Models* | Enity P | Entity R | Entity F | Relation P | Relation R | Relation F
    --- | --- | --- | --- | --- | --- | --- 
-   Li and Ji (2014) |*83.5* | 76.2 | 79.7 | **60.8** |36.1|49.3
-   Miwa and Bansal (2016) | 80.8 | **82.9** | *81.8* | 48.7 |*48.1*|*48.4*
-  Katiyar and Cardie (2017) | 81.2 | 78.1 | 79.6 | 46.4 | 45.3 | 45.7 
-  Bekoulis et al.(2018) | - | - | 81.6 | - | - | 47.5 
-  Multi-turn QA| **84.4** | **82.9** | **83.6** | 50.1 | **48.7** | **49.4(+1.0)** 
+   Miwa and Bansal (2016) | 80.8 | 82.9 | 81.8 | 48.7 | 48.1 | 48.4 
+  Multi-turn QA| 84.4 | 82.9 | **83.6** | 50.1 | **48.7** | **49.4 (+1.0)** 
   
-- Results on **ACE 2005** test set (Precision, Recall and F1 are reported)
+- Results on **ACE 2005**:
 
   | *Models* | Enity P | Entity R | Entity F | Relation P | Relation R | Relation F|
   | --- | --- | --- | --- | --- | --- | --- |
-  |Li and Ji (2014)| **85.2** | 76.9| 80.8| **65.4**| 39.8| 49.5|
-  |Miwa and Bansal (2016)| 82.9| *83.9*| 83.4| 57.2| 54.0 |55.6|
-  |Katiyar and Cardie (2017)| 84.0| 81.3| 82.6| 55.5| 51.8|53.6|
-  |Zhang et al. (2017)| -| -| 83.5 |-|- |57.5|
-  |Sun et al. (2018) |83.9 |83.2| *83.6*| 64.9| *55.1*| *59.6*|
-  |Multi-turn QA |84.7 |**84.9**|**84.8** |64.8| **56.2**| **60.2 (+0.6)**|
+  |Sun et al. (2018) |83.9 s|83.2| 83.6| 64.9| 55.1| 59.6|
+  |Multi-turn QA |84.7 |84.9|**84.8** |64.8| 56.2| **60.2 (+0.6)**|
   
-- Results on **CoNLL 2004** dataset (Precision, Recall and F1 are reported)
+- Results on **CoNLL 2004**:
 
   | *Models* | Enity P | Entity R | Entity F | Relation P | Relation R | Relation F|
   | --- | --- | --- | --- | --- | --- | --- |
-  |Miwa and Sasaki (2014)| – |– |80.7| –| – |61.0|
-  |Zhang et al. (2017) |– |–| 85.6 |– |–| *67.8*|
-  |Bekoulis et al. (2018)| – |– |83.6| –| – |62.0|
-  |Multi-turn QA |**89.0**| **86.6**| **87.8** |**69.2** |**68.2**| **68.9**| (+1.1)|
+  |Zhang et al. (2017) |– |–| 85.6 |– |–| 67.8|
+  |Multi-turn QA | 89.0 | 86.6 | **87.8** | 69.2 | 68.2 | **68.9 (+1.1)**|
 
 ## Usage
-### Dependencies
+### Dataset Preparation 
+1. Download original datasets from:
+	* ACE 2004 `https://catalog.ldc.upenn.edu/LDC2005T09`
+	* ACE 2005 `https://catalog.ldc.upenn.edu/LDC2006T06`
+	* CoNLL 2004 `https://cogcomp.seas.upenn.edu/Data/ER/conll04.corp`
+2. Split datasets following the previous work: 
+	* ACE 2004 `https://github.com/tticoin/LSTM-ER/`
+	* ACE 2005 `https://github.com/tticoin/LSTM-ER/`
+	* CoNLL 2004 `https://github.com/bekou/multihead_joint_entity_relation_extraction/tree/master/data/CoNLL04`
+3. Transform data to Question-Answering scheme:
+	
+	Convert data from `Relation(Entity1, Entity2)` to `(Question, Answer, Context)`. 
+	
+	Take `ACE 2004` dataset for example: 
+
+	```bash 
+	export TASK_NAME=ace2004 
+	export ORIGIN_DATA_PATH=/path/to/ace2004
+	export EXPORT_DATA_PATH=/path/to/convert_qa_scheme
+	
+	cd utils/
+	python3 prep_qa_data.py --data_sign $TASK_NAME \
+		--origin_data_path $ORIGIN_DATA_PATH \
+		--export_data_path $EXPORT_DATA_PATH 
+	```
+	After this, you will have a `ace2004` subdirectory under the folder of `/path/to/convert_qa_scheme`. The folder of `ace2004` contains the experiments files for entity and relation extraction tasks. 
+	
+	The `TASK_NAME` can be `ace2004`, `ace2005`, `conll2004`.
+	
+	
+	
+	
+	The folder of `ace2004` contains train/validate/test files for the task of entity extraction and relation classification. 
+
+### Software Dependencies
+* Python version >= 3.6
+* PyTorch == 1.1.0
+* Download and unzip `BERT-Large, English` pretrained model. 
+* Install `pip install pytorch-pretrained-bert==1.1.0`
+* Transform the model checkpoint from `*.ckpt` to `*.bin`.   
+	`*.ckpt` represents the TensorFlow checkpoint. `*.bin` represents the PyTorch checkpoint. 
+
+	```bash 
+	export BERT_BASE_DIR=/path/to/bert/chinese_L-12_H-768_A-12
+
+	pytorch_pretrained_bert convert_tf_checkpoint_to_pytorch \
+	$BERT_BASE_DIR/bert_model.ckpt \
+	$BERT_BASE_DIR/bert_config.json \
+	$BERT_BASE_DIR/pytorch_model.bin
+	```
+
 
 ### Training
+pass 
+
+
 
 ### Evaluation
+In order to evaluate the performance of a saved checkpoint, you need to use the `utils/evaluate_performance.py` file. Please use the following command:
+
+```bash 
+pass 
+```
+
 
 ## Citation
 
@@ -85,4 +132,4 @@ Please cite the following if you find this repo useful :)
 ```
 
 ## License
-Refer to [LICENCE](https://github.com/ShannonAI/Entity-Relation-As-Multi-Turn-QA/blob/master/LICENSE) for details.
+Refer to [LISENCE](https://github.com/ShannonAI/Entity-Relation-As-Multi-Turn-QA/blob/master/LICENSE) for details.
