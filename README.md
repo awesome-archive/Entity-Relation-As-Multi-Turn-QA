@@ -18,18 +18,8 @@ In addition to multi-QA, we also utilize **reinforcement learning** to better ex
 We trained and evaluated the model using the following datasets:
 - **ACE 2004/2005**: the widely used entity-relation extraction benchmarks defining 7 entity types including `PER`, `ORG`, `GPE`, `LOC`, `FAC`, `WEA` and `VEH`, and 7 relation types including `PHYS`, `PER-SOC`, `EMP-ORG`, `ART`, `OTHER-AFF`, `GPE-AFF` and `DISC` for **ACE 2004** while `PHYS`, `PER-SOC`, `EMP-ORG`, `ART`, `GPE-AFF` and `PART-WHOLE` for **ACE 2005**
 - **CoNLL 2004**: an entity-relation extraction dataset which defines 4 entity types `LOC`, `ORG`, `PER` and `OTHERS` and 5 relation types including `LOCATED_IN`, `WORK_FOR`, `ORGBASED_IN`, `LIVE_IN` and `KILL`
-- **RESUME**:  a newly constructed dataset for joint entity-relation extraction in this paper. This dataset involves hierarchical entity relations consisting of 845 paragraphs from chapters describing teams in IPO prospectuses. **RESUME** defines 4 entity types including `PERSON`, `COMPANY`, `POSITION` and `TIME`. 
 
 ### Results
-- Results on **RESUME** dataset (F1 score is reported)
-
-  | *Type* | multi-turn QA | multi-turn QA+RL | tagging+dependency | tagging+relation |
-  |--|   --- |   ---| --- | --- |
-  |PERSON| **98.6** | **98.6** |  97.1 | 97.1 |
-  |COMPANY| 84.9 | **85.5** | 84.2 |83.5|
-  |POSITION| 97.8 | **98.1** | 97.0 | 96.0 |
-  |TIME| 97.7 | **97.9** | 95.7 |94.9 |
-  |*All*|92.1|**92.5**|90.8|89.8|
 
 - Results on **ACE 2004** test set (Precision, Recall and F1 are reported)
 
