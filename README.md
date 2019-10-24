@@ -4,8 +4,6 @@ This is the implementation of the work [Entity-Relation Extraction as Multi-turn
 ](https://arxiv.org/pdf/1905.05529.pdf) from [Shannon.AI](http://www.shannonai.com). The implementation is on top of PyTorch.  
 
 ## Introduction
-- the lack of consideration of hierarchical entity relation behind semantic dependencies
-- more complicated realities compared to handcrafted datasets
 
 In this paper, we regard joint entity-relation extraction as a **multi-turn question answering task (multi-turn QA)**: each kind of entity and relation can be described by a QA template, through which the corresponding entity or relation can be extracted from raw texts as answers.
 
@@ -93,7 +91,6 @@ We only list the experimental comparion between the proposed method and **previo
 
 
 ### Training
-pass 
 
 
 
@@ -101,7 +98,6 @@ pass
 In order to evaluate the performance of a saved checkpoint, you need to use the `utils/evaluate_performance.py` file. Please use the following command:
 
 ```bash 
-pass 
 ```
 
 
