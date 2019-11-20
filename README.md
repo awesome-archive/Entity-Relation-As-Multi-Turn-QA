@@ -6,7 +6,7 @@ The repository contains the code of the recent research advances in [Shannon.AI]
 Xiaoya Li, Fan Yin, Zijun Sun, Xiayu Li, Arianna Yuan, Duo Chai, Mingxin Zhou and Jiwei Li <br> 
 Accepted by [ACL 2019](https://arxiv.org/pdf/1905.05529.pdf) <br>
 If you find this repo helpful, please cite the following:
-```latex
+```text
 @inproceedings{li-etal-2019-entity,
     title = "Entity-Relation Extraction as Multi-Turn Question Answering",
     author = "Li, Xiaoya  and
