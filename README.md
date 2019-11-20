@@ -9,8 +9,14 @@ If you find this repo helpful, please cite the following:
 ```latex
 @inproceedings{li-etal-2019-entity,
     title = "Entity-Relation Extraction as Multi-Turn Question Answering",
-    author = "Li, Xiaoya and Yin, Fan and Sun, Zijun and Li, Xiayu and
-      Yuan, Arianna and Chai, Duo and Zhou, Mingxin and Li, Jiwei",
+    author = "Li, Xiaoya  and
+      Yin, Fan  and
+      Sun, Zijun  and
+      Li, Xiayu  and
+      Yuan, Arianna  and
+      Chai, Duo  and
+      Zhou, Mingxin  and
+      Li, Jiwei",
     booktitle = "Proceedings of the 57th Annual Meeting of the Association for Computational Linguistics",
     month = jul,
     year = "2019",
@@ -18,7 +24,7 @@ If you find this repo helpful, please cite the following:
     publisher = "Association for Computational Linguistics",
     url = "https://www.aclweb.org/anthology/P19-1129",
     doi = "10.18653/v1/P19-1129",
-    pages = "1340--1350",
+    pages = "1340--1350"
 }
 ```
  
