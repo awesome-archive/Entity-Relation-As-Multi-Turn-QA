@@ -1,13 +1,43 @@
 # Entity-Relation Extraction as Multi-turn Question Answering
 
-This is the implementation of the work [Entity-Relation Extraction as Multi-turn Question Answering (ACL 2019)
-](https://arxiv.org/pdf/1905.05529.pdf) from [Shannon.AI](http://www.shannonai.com). The implementation is on top of PyTorch.  
+The repository contains the code of the recent research advances in [Shannon.AI](http://www.shannonai.com). 
 
-## Introduction
+**Entity-Relation Extraction as Multi-turn Question Answering (ACL 2019)**<br>
+Xiaoya Li, Fan Yin, Zijun Sun, Xiayu Li, Arianna Yuan, Duo Chai, Mingxin Zhou and Jiwei Li <br> 
+Accepted by [ACL 2019](https://arxiv.org/pdf/1905.05529.pdf) <br>
+If you find this repo helpful, please cite the following:
+```latex
+@inproceedings{li-etal-2019-entity,
+    title = "Entity-Relation Extraction as Multi-Turn Question Answering",
+    author = "Li, Xiaoya and Yin, Fan and Sun, Zijun and Li, Xiayu and
+      Yuan, Arianna and Chai, Duo and Zhou, Mingxin and Li, Jiwei",
+    booktitle = "Proceedings of the 57th Annual Meeting of the Association for Computational Linguistics",
+    month = jul,
+    year = "2019",
+    address = "Florence, Italy",
+    publisher = "Association for Computational Linguistics",
+    url = "https://www.aclweb.org/anthology/P19-1129",
+    doi = "10.18653/v1/P19-1129",
+    pages = "1340--1350",
+}
+```
+ 
 
-In this paper, we regard joint entity-relation extraction as a **multi-turn question answering task (multi-turn QA)**: each kind of entity and relation can be described by a QA template, through which the corresponding entity or relation can be extracted from raw texts as answers.
+## Overview
+
+In this paper, we regard joint entity-relation extraction as a **multi-turn question answering task (multi-turn QA)**: each kind of entity and relation can be described by a QA template, through which the corresponding entity or relation can be extracted from raw texts as answers. s<br> 
+
+For example, 
 
 In addition to multi-QA, we also utilize **reinforcement learning** to better extract answers with long template chains. We also design a strategy to automatically generate question templates and answers. More details please refer to our paper.
+
+
+## Contents
+1. [Experimental Results](#experimental-results)
+2. [Data Preparation](#data-preparation) 
+2. [Dependencies](#dependencies)
+3. [Usage](#usage)
+4. [FAQ](#faq)
 
 
 ## Experimental Results
@@ -37,95 +67,79 @@ We only list the experimental comparion between the proposed method and **previo
   |Zhang et al. (2017) |– |–| 85.6 |– |–| 67.8|
   |Multi-turn QA | 89.0 | 86.6 | **87.8** | 69.2 | 68.2 | **68.9 (+1.1)**|
 
+
+## Data Preparation
+
+We will release preprocessed and source data files for our experiments. 
+You can download the preprocessed datasets and source data files from [Google  Drive](./docs/data_download.md). 
+
+For data processing, you can follow the [guidance](./docs/data_preprocess.md) to generate your own QA-based relation extraction files.
+
+    
+## Dependencies 
+
+* Package dependencies: 
+```bash 
+python >= 3.6
+PyTorch == 1.1.0
+pytorch-pretrained-bert == 0.6.1 
+```
+* Download and unzip `BERT-Large, English` pretrained model. Follow the following command to convert the model's checkpoint from Tensorflow to PyTorch. 
+    
+    ```bash 
+    export BERT_BASE_DIR=/path/to/bert/chinese_L-12_H-768_A-12
+
+    pytorch_pretrained_bert convert_tf_checkpoint_to_pytorch \
+    $BERT_BASE_DIR/bert_model.ckpt \
+    $BERT_BASE_DIR/bert_config.json \
+    $BERT_BASE_DIR/pytorch_model.bin
+    ```
+
+
 ## Usage
-### Dataset Preparation 
-1. Download original datasets from:
-	* ACE 2004 `https://catalog.ldc.upenn.edu/LDC2005T09`
-	* ACE 2005 `https://catalog.ldc.upenn.edu/LDC2006T06`
-	* CoNLL 2004 `https://cogcomp.seas.upenn.edu/Data/ER/conll04.corp`
-2. Split datasets following the previous work: 
-	* ACE 2004 `https://github.com/tticoin/LSTM-ER/`
-	* ACE 2005 `https://github.com/tticoin/LSTM-ER/`
-	* CoNLL 2004 `https://github.com/bekou/multihead_joint_entity_relation_extraction/tree/master/data/CoNLL04`
-3. Transform data to Question-Answering scheme:
-	
-	Convert data from `Relation(Entity1, Entity2)` to `(Question, Answer, Context)`. 
-	
-	Take `ACE 2004` dataset for example: 
-
-	```bash 
-	export TASK_NAME=ace2004 
-	export ORIGIN_DATA_PATH=/path/to/ace2004
-	export EXPORT_DATA_PATH=/path/to/convert_qa_scheme
-	
-	cd utils/
-	python3 prep_qa_data.py --data_sign $TASK_NAME \
-		--origin_data_path $ORIGIN_DATA_PATH \
-		--export_data_path $EXPORT_DATA_PATH 
-	```
-	After this, you will have a `ace2004` subdirectory under the folder of `/path/to/convert_qa_scheme`. The folder of `ace2004` contains the experiments files for entity and relation extraction tasks. 
-	
-	The `TASK_NAME` can be `ace2004`, `ace2005`, `conll2004`.
-	
-	
-	
-	
-	The folder of `ace2004` contains train/validate/test files for the task of entity extraction and relation classification. 
-
-### Software Dependencies
-* Python version >= 3.6
-* PyTorch == 1.1.0
-* Download and unzip `BERT-Large, English` pretrained model. 
-* Install `pip install pytorch-pretrained-bert==1.1.0`
-* Transform the model checkpoint from `*.ckpt` to `*.bin`.   
-	`*.ckpt` represents the TensorFlow checkpoint. `*.bin` represents the PyTorch checkpoint. 
-
-	```bash 
-	export BERT_BASE_DIR=/path/to/bert/chinese_L-12_H-768_A-12
-
-	pytorch_pretrained_bert convert_tf_checkpoint_to_pytorch \
-	$BERT_BASE_DIR/bert_model.ckpt \
-	$BERT_BASE_DIR/bert_config.json \
-	$BERT_BASE_DIR/pytorch_model.bin
-	```
-
-
-### Training
-
-
-
-### Evaluation
-In order to evaluate the performance of a saved checkpoint, you need to use the `utils/evaluate_performance.py` file. Please use the following command:
+As an example, the following command trains the proposed mothod on ACE 2005. 
 
 ```bash 
+base_path=/home/work/Entity-Relation-As-Multi-Turn-QA
+bert_model=/data/BERT_BASE_DIR/cased_L-24_H-1024_A-16
+data_dir=/data/ace05-qa
+
+config_path=Entity-Relation-As-Multi-Turn-QA/configs/eng_large_case_bert.json
+task_name=ner
+max_seq_length=150
+num_train_epochs=4
+warmup_proportion=-1
+seed=3306
+data_sign=en_onto
+checkpoint=28000
+
+gradient_accumulation_steps=4
+learning_rate=6e-6
+train_batch_size=36
+dev_batch_size=72
+test_batch_size=72
+export_model=/data/export_folder/${train_batch_size}_lr${learning_rate}
+output_dir=${export_model}
+
+CUDA_VISIBLE_DEVICES=2 python3 ${base_path}/run/run_relation_extraction.py \
+--config_path ${config_path} \
+--data_dir ${data_dir} \
+--bert_model ${bert_model} \
+--max_seq_length ${max_seq_length} \
+--train_batch_size ${train_batch_size} \
+--dev_batch_size ${dev_batch_size} \
+--test_batch_size ${test_batch_size} \
+--checkpoint ${checkpoint} \
+--learning_rate ${learning_rate} \
+--num_train_epochs ${num_train_epochs} \
+--warmup_proportion ${warmup_proportion} \
+--export_model ${export_model} \
+--output_dir ${output_dir} \
+--data_sign ${data_sign} \
+--gradient_accumulation_steps ${gradient_accumulation_steps} \
+--allow_impossible 1 
 ```
 
+## FAQ
 
-## Citation
 
-Please cite the following if you find this repo useful :)
-
-```
-@inproceedings{li-etal-2019-entity,
-    title = "Entity-Relation Extraction as Multi-Turn Question Answering",
-    author = "Li, Xiaoya  and
-      Yin, Fan  and
-      Sun, Zijun  and
-      Li, Xiayu  and
-      Yuan, Arianna  and
-      Chai, Duo  and
-      Zhou, Mingxin  and
-      Li, Jiwei",
-    booktitle = "Proceedings of the 57th Annual Meeting of the Association for Computational Linguistics",
-    month = jul,
-    year = "2019",
-    address = "Florence, Italy",
-    publisher = "Association for Computational Linguistics",
-    url = "https://www.aclweb.org/anthology/P19-1129",
-    doi = "10.18653/v1/P19-1129",
-    pages = "1340--1350",
-}
-```
-
-## License
-Refer to [LISENCE](https://github.com/ShannonAI/Entity-Relation-As-Multi-Turn-QA/blob/master/LICENSE) for details.
